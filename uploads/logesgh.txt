@@ -1,0 +1,32 @@
+import pandas as pd
+
+def cases(s):
+    if pd.isna(s):
+        return s
+    
+    s = str(s)  
+    if not s:
+        return s
+    
+    result = s[0].upper()  
+    
+    for i in range(1, len(s)):
+        if s[i-1].isspace() or s[i-1] == '_' or (s[i].isupper() and s[i-1].islower()):
+            result += s[i].upper()
+        else:
+            result += s[i].lower()
+            
+    return result
+
+def camel_data(df):
+    return df.applymap(cases)
+
+data = {
+    'col1': [' s logesh_kumar', 'thiru malai', None, '7ffab9', 'hello_world', 'skj984'],
+    'col2': ['ApplE', 'PhlusObgh', 'orange', '6f5d2a', None, '123abc']
+}
+df = pd.DataFrame(data)
+
+df = camel_data(df)
+
+print(df)
